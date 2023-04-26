@@ -3,6 +3,9 @@ import json
 # import related models here
 from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
+from ibm_watson import NaturalLanguageUnderstandingV1
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from ibm_watson.natural_language_understanding_v1 import Features,SentimentOptions
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -12,7 +15,6 @@ def get_request(url, **kwargs):
     print(kwargs)
     print("GET from {} ".format(url))
     try:
-        # Call get method of requests library with URL and parameters
         response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs)
     except:
@@ -99,6 +101,11 @@ def get_dealer_reviews_from_cf(url,**kwargs):
                 review_obj.car_model = dealer_review["car_model"]
             if "car_year" in dealer_review:
                 review_obj.car_year = dealer_review["car_year"]
+
+            #NLU Watson Sentiment
+            sentiment = analyze_review_sentiments(review_obj.review)
+            print ("Questo è il risultato NLU: " + sentiment)
+            review_obj.sentiment = sentiment
             results.append(review_obj)
 
     return results
@@ -111,5 +118,14 @@ def get_dealer_reviews_from_cf(url,**kwargs):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
 
-
+def analyze_review_sentiments(text):
+    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/307b8fd7-eed4-4c2d-bc7b-2d61fcbfdd49" 
+    api_key = "CPIInc1IYZWCaGLPKPJD1u3SezkwVeGAwRz-UfVlzByu" 
+    authenticator = IAMAuthenticator(api_key) 
+    natural_language_understanding = NaturalLanguageUnderstandingV1(version='2021-08-01',authenticator=authenticator) 
+    natural_language_understanding.set_service_url(url) 
+    response = natural_language_understanding.analyze( text=text, language="en" ,features=Features(sentiment=SentimentOptions(targets=[text]))).get_result() 
+    label=json.dumps(response, indent=2) 
+    label = response['sentiment']['document']['label'] 
+    return(label) 
 
