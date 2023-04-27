@@ -46,10 +46,23 @@
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav mr-right">
+              <li class="nav-item">
+                  <a class="btn btn-outline-secondary" href="">{{user.first_name}} ({{user.username}})</a>
+                  <a class="btn btn-outline-danger mr-sm-2" href="">Logout</a>
+              </li>
+          </ul>
+          {% else %}
+          <form class="form-inline my-2 my-lg-0" action="" method="POST">
+              <div class="input-group">
+                <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
+                <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>
+                <p><button class="btn btn-outline-success mr-sm-2" type="submit">Login</button>
+                <a class="btn btn-outline-success mr-sm-2" href="">Sign Up</a></p>
+              </div>
           </form>
+          {% endif %}
         </div>
       </nav>
     <!--Add a dealer table here -->
@@ -100,6 +113,4 @@
           $('#table').bootstrapTable()
         })
     </script>
-
-
 </html>
