@@ -9,8 +9,42 @@
 
     <body>
 
-    <!--Add a nav bar here -->
-
+    <!-- Nav Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Best Cars Dealerships</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>     
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'djangoapp:about' %}">About Us</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+          </li>
+      </ul>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav mr-right">
+          <li class="nav-item my-2 my-lg-0">
+              <a class="btn btn-outline-secondary" href="#">{{user.first_name}} ({{user.username}})</a>
+              <a class="btn btn-outline-danger mr-sm-2" href="{% url 'djangoapp:logout' %}">Logout</a>
+          </li>
+      </ul>
+      {% else %}
+      <form class="form-inline my-2 my-lg-0" action="{% url 'djangoapp:login' %}" method="POST">
+        {% csrf_token %}
+          <div class="input-group">
+            <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
+            <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>
+            <p><button class="btn btn-outline-primary mr-sm-2" type="submit">Login</button>
+            <a class="btn btn-outline-success mr-sm-2" href="">Sign Up</a></p>
+          </div>
+      </form>
+      {% endif %}
+    </div>
+  </nav>
+<!-- Body -->
     <!-- Add reviews as cards -->
     <div class="container-fluid">
         <h5 style="text-align:center">Reviews for <b>{{dealer.full_name}}</b>, with Dealer ID: <b>{{dealer.id}}</b></h5>
