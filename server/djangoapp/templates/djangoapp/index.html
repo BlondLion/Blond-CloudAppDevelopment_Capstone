@@ -48,17 +48,18 @@
           </ul>
           {% if user.is_authenticated %}
           <ul class="navbar-nav mr-right">
-              <li class="nav-item">
-                  <a class="btn btn-outline-secondary" href="">{{user.first_name}} ({{user.username}})</a>
-                  <a class="btn btn-outline-danger mr-sm-2" href="">Logout</a>
+              <li class="nav-item my-2 my-lg-0">
+                  <a class="btn btn-outline-secondary" href="#">{{user.first_name}} ({{user.username}})</a>
+                  <a class="btn btn-outline-danger mr-sm-2" href="{% url 'djangoapp:logout' %}">Logout</a>
               </li>
           </ul>
           {% else %}
-          <form class="form-inline my-2 my-lg-0" action="" method="POST">
+          <form class="form-inline my-2 my-lg-0" action="{% url 'djangoapp:login' %}" method="POST">
+            {% csrf_token %}
               <div class="input-group">
                 <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
                 <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>
-                <p><button class="btn btn-outline-success mr-sm-2" type="submit">Login</button>
+                <p><button class="btn btn-outline-primary mr-sm-2" type="submit">Login</button>
                 <a class="btn btn-outline-success mr-sm-2" href="">Sign Up</a></p>
               </div>
           </form>

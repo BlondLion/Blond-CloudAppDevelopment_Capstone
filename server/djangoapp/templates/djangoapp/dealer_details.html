@@ -17,6 +17,9 @@
         <hr>
         {% if reviews %}
         <div class="container">
+            {% if user.is_authenticated %}
+            <p align="center"><a class="btn btn-primary" href="add-review">Add review</a></p>
+            {% endif %}
             <div class="card-deck">
                 {% for review in reviews %}
                     <div class="card" style="width: 36rem;">
@@ -47,7 +50,10 @@
             </div>
         </div>
         {% else %}
-            <p>No reviews are available.</p>
+            <div><h2 style="text-align:center">No reviews are available. </h2></div>
+                {% if user.is_authenticated %}
+                <div align="center"><a class="btn btn-primary" href="add-review">Add the first review</a></div>
+                {% endif %}      
         {% endif %}
 
 
