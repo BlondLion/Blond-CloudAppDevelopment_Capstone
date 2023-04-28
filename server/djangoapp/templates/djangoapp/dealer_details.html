@@ -33,7 +33,7 @@
       </ul>
       {% else %}
       <form class="form-inline my-2 my-lg-0" action="{% url 'djangoapp:login' %}" method="POST">
-        {% csrf_token %}
+          {% csrf_token %}
           <div class="input-group">
             <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
             <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>

@@ -35,7 +35,7 @@
       </ul>
       {% else %}
       <form class="form-inline my-2 my-lg-0" action="{% url 'djangoapp:login' %}" method="POST">
-        {% csrf_token %}
+          {% csrf_token %}
           <div class="input-group">
             <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
             <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>
@@ -55,8 +55,8 @@
                   <hr>
                   {% if user.is_authenticated %}
                   <form action = "{% url 'djangoapp:add_review' dealer.id %}" method="post">
-                      <H5>Your Name:</H5><br>
                       {% csrf_token %}
+                      <H5>Your Name:</H5><br>
                       <input class="form-control" id="name" name="name" size="30" required></textarea><br>
                       <H5>Enter the review content:</H5><br>
                       <textarea class="form-control" id="content" name="content" rows="2" required></textarea><br>

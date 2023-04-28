@@ -43,12 +43,12 @@
           </ul>
           {% else %}
           <form class="form-inline my-2 my-lg-0" action="{% url 'djangoapp:login' %}" method="POST">
-            {% csrf_token %}
+              {% csrf_token %}
               <div class="input-group">
                 <p><input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" aria-label="Username"></p>
                 <p><input class="form-control mr-sm-2" type="password" placeholder="Password" name="psw" aria-label="Password"></p>
                 <p><button class="btn btn-outline-primary mr-sm-2" type="submit">Login</button>
-                <a class="btn btn-outline-success mr-sm-2" href="">Sign Up</a></p>
+                <a class="btn btn-outline-success mr-sm-2" href="{% url 'djangoapp:signup' %}">Sign Up</a></p>
               </div>
           </form>
           {% endif %}

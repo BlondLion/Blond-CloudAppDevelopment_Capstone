@@ -27,7 +27,18 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = [
+    'localhost', 
+    'localhost:8000', 
+    'https://*.proxy.cognitiveclass.ai',
+    'https://*.proxy.cognitiveclass.ai/*'
+    ]
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.proxy.cognitiveclass.ai',
+    'https://*.proxy.cognitiveclass.ai/*'    
+    ]
 
 
 # Application definition
